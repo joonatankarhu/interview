@@ -33,12 +33,12 @@ func HandleBookingsByRoom(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	roomIDStr := r.URL.Query().Get("roomId")
 	if roomIDStr == "" {
-		http.Error(w, `{"error": "roomId required as query param"}`, http.StatusBadRequest)
+		WriteError(w, "roomId required as query param", http.StatusBadRequest)
 		return
 	}
 	roomID, err := strconv.Atoi(roomIDStr)
 	if err != nil {
-		http.Error(w, `{"error": "Invalid roomId"}`, http.StatusBadRequest)
+		WriteError(w, "Invalid roomId", http.StatusBadRequest)
 		return
 	}
 	found := false
@@ -49,7 +49,7 @@ func HandleBookingsByRoom(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if !found {
-		http.Error(w, `{"error": "Room not found"}`, http.StatusNotFound)
+		WriteError(w, "Room not found", http.StatusNotFound)
 		return
 	}
 	filtered := []Booking{}
@@ -71,11 +71,11 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 		User   string `json:"user"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, `{"error": "Invalid JSON"}`, http.StatusBadRequest)
+		WriteError(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
 	if req.RoomID == 0 || req.Start == "" || req.End == "" || req.User == "" {
-		http.Error(w, `{"error": "Missing required fields"}`, http.StatusBadRequest)
+		WriteError(w, "Missing required fields", http.StatusBadRequest)
 		return
 	}
 	// Check room exists
@@ -87,7 +87,7 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if !found {
-		http.Error(w, `{"error": "Invalid roomId"}`, http.StatusBadRequest)
+		WriteError(w, "Invalid roomId", http.StatusBadRequest)
 		return
 	}
 	// Parse dates
@@ -95,15 +95,15 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 	endDate, err2 := time.Parse(time.RFC3339, req.End)
 	now := time.Now()
 	if err1 != nil || err2 != nil {
-		http.Error(w, `{"error": "Invalid date format"}`, http.StatusBadRequest)
+		WriteError(w, "Invalid date format", http.StatusBadRequest)
 		return
 	}
 	if !startDate.Before(endDate) {
-		http.Error(w, `{"error": "Start time must be before end time"}`, http.StatusBadRequest)
+		WriteError(w, "Start time must be before end time", http.StatusBadRequest)
 		return
 	}
 	if startDate.Before(now) {
-		http.Error(w, `{"error": "Cannot book in the past"}`, http.StatusBadRequest)
+		WriteError(w, "Cannot book in the past", http.StatusBadRequest)
 		return
 	}
 	// Check for overlapping bookings
@@ -114,7 +114,7 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 		bStart, _ := time.Parse(time.RFC3339, b.Start)
 		bEnd, _ := time.Parse(time.RFC3339, b.End)
 		if startDate.Before(bEnd) && endDate.After(bStart) {
-			http.Error(w, `{"error": "Room already booked for this time"}`, http.StatusConflict)
+			WriteError(w, "Room already booked for this time", http.StatusConflict)
 			return
 		}
 	}
@@ -138,7 +138,7 @@ func HandleDeleteBooking(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, `{"error": "Invalid id"}`, http.StatusBadRequest)
+		WriteError(w, "Invalid id", http.StatusBadRequest)
 		return
 	}
 	idx := -1
@@ -149,7 +149,7 @@ func HandleDeleteBooking(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if idx == -1 {
-		http.Error(w, `{"error": "Booking not found"}`, http.StatusNotFound)
+		WriteError(w, "Booking not found", http.StatusNotFound)
 		return
 	}
 	bookings = append(bookings[:idx], bookings[idx+1:]...)
