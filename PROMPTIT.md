@@ -61,3 +61,13 @@
 **Prompt:**
 
 > Move the helper funcs to helpers.go @server.go (1-159)
+
+---
+
+## Testing
+
+**Prompt:**
+
+> Add testing, add test for GET /rooms endpoint.
+
+I asked the AI to add testing to the project: a test for the GET /rooms endpoint. The AI added `server/server_test.go` with a test that checks the endpoint returns status 200 and the expected room list, and a Makefile with `make test` to run tests quickly.
