@@ -72,6 +72,12 @@
 
 I asked the AI to add testing to the project: a test for the GET /rooms endpoint. The AI added `server/server_test.go` with a test that checks the endpoint returns status 200 and the expected room list, and a Makefile with `make test` to run tests quickly.
 
+**Prompt:**
+
+> Add test for all the other endpoints too.
+
+I asked the AI to add tests for all the other endpoints. The AI added tests in `server/server_test.go` for: **GET /bookings** (empty list), **GET /bookings/room** (missing roomId, invalid roomId, room not found, success), **POST /bookings** (invalid JSON, missing fields, success), and **DELETE /bookings** (invalid id, not found, success). Tests use a `resetBookingsState()` helper so each test runs with a clean in-memory state. Run with `make test`.
+
 ---
 
 ## Makefile: Start and Stop Server
