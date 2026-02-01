@@ -43,3 +43,11 @@
 **Prompt:**
 
 > After deleting a booking, give a success message.
+
+---
+
+## Code Formatting
+
+**Prompt:**
+
+> Can these be formatted like var ( variables, variables )? @server.go (10-16)

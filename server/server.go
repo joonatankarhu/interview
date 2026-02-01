@@ -7,13 +7,15 @@ import (
 	"time"
 )
 
-var rooms = []Room{
-	{ID: 1, Name: "Room A"},
-	{ID: 2, Name: "Room B"},
-	{ID: 3, Name: "Room C"},
-}
-var bookings = []Booking{}
-var nextID = 1
+var (
+	rooms = []Room{
+		{ID: 1, Name: "Room A"},
+		{ID: 2, Name: "Room B"},
+		{ID: 3, Name: "Room C"},
+	}
+	bookings = []Booking{}
+	nextID   = 1
+)
 
 // List bookings for a specific room by room ID
 func HandleBookingsByRoom(w http.ResponseWriter, r *http.Request) {
