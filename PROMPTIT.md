@@ -51,3 +51,11 @@
 **Prompt:**
 
 > Can these be formatted like var ( variables, variables )? @server.go (10-16)
+
+---
+
+## Move Helper Functions
+
+**Prompt:**
+
+> Move the helper funcs to helpers.go @server.go (1-159)
