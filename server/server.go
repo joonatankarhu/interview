@@ -36,7 +36,7 @@ func HandleGetBookingsByRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	roomID, err := strconv.Atoi(roomIDStr)
+	roomID, err := strconv.Atoi(roomIDStr) // convert string to int
 	
 	if err != nil {
 		WriteError(w, "Invalid roomId", http.StatusBadRequest)
@@ -110,7 +110,7 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 func HandleDeleteBooking(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("id")
 
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(idStr) // convert string to int
 
 	if err != nil {
 		WriteError(w, "Invalid id", http.StatusBadRequest)
