@@ -35,3 +35,11 @@
 **Example prompt:**
 
 > Return JSON error messages for invalid roomId, missing fields, invalid dates, and overlapping bookings. Use proper HTTP status codes (400, 404, 409).
+
+---
+
+## Delete Success Message
+
+**Prompt:**
+
+> After deleting a booking, give a success message.
