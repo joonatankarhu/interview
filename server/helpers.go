@@ -19,11 +19,13 @@ func roomExists(roomID int) bool {
 // getBookingsByRoom returns all bookings for a room.
 func getBookingsByRoom(roomID int) []Booking {
 	result := []Booking{}
+
 	for _, b := range bookings {
 		if b.RoomID == roomID {
 			result = append(result, b)
 		}
 	}
+
 	return result
 }
 
@@ -34,6 +36,7 @@ func findBookingIndex(id int) int {
 			return i
 		}
 	}
+
 	return -1
 }
 
@@ -49,6 +52,7 @@ func hasOverlappingBooking(roomID int, start, end time.Time) bool {
 			return true
 		}
 	}
+	
 	return false
 }
 

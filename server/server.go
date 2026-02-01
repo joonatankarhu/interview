@@ -20,12 +20,14 @@ var (
 // List bookings for a specific room by room ID
 func HandleBookingsByRoom(w http.ResponseWriter, r *http.Request) {
 	roomIDStr := r.URL.Query().Get("roomId")
+
 	if roomIDStr == "" {
 		WriteError(w, "roomId required as query param", http.StatusBadRequest)
 		return
 	}
 
 	roomID, err := strconv.Atoi(roomIDStr)
+	
 	if err != nil {
 		WriteError(w, "Invalid roomId", http.StatusBadRequest)
 		return
@@ -42,6 +44,7 @@ func HandleBookingsByRoom(w http.ResponseWriter, r *http.Request) {
 // Create a new booking
 func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 	var req CreateBookingRequest
+
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		WriteError(w, "Invalid JSON", http.StatusBadRequest)
 		return
@@ -59,6 +62,7 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 
 	startDate, err1 := time.Parse(time.RFC3339, req.Start)
 	endDate, err2 := time.Parse(time.RFC3339, req.End)
+
 	if err1 != nil || err2 != nil {
 		WriteError(w, "Invalid date format", http.StatusBadRequest)
 		return
@@ -95,18 +99,22 @@ func HandleCreateBooking(w http.ResponseWriter, r *http.Request) {
 // Cancel a booking
 func HandleDeleteBooking(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("id")
+
 	id, err := strconv.Atoi(idStr)
+
 	if err != nil {
 		WriteError(w, "Invalid id", http.StatusBadRequest)
 		return
 	}
 
 	idx := findBookingIndex(id)
+
 	if idx == -1 {
 		WriteError(w, "Booking not found", http.StatusNotFound)
 		return
 	}
 
 	bookings = append(bookings[:idx], bookings[idx+1:]...)
+	
 	WriteJSON(w, http.StatusOK, map[string]string{"message": "Booking deleted successfully"})
 }
