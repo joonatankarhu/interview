@@ -71,3 +71,13 @@
 > Add testing, add test for GET /rooms endpoint.
 
 I asked the AI to add testing to the project: a test for the GET /rooms endpoint. The AI added `server/server_test.go` with a test that checks the endpoint returns status 200 and the expected room list, and a Makefile with `make test` to run tests quickly.
+
+---
+
+## Makefile: Start and Stop Server
+
+**Prompt:**
+
+> Add in make file, a command for starting and stopping the server.
+
+I asked the AI to add Makefile targets for starting and stopping the server. The AI added: `make start` (runs the server in the background and saves the process ID to `.server.pid`), `make stop` (stops the server started with `make start`), and `make run` (runs the server in the foreground; use Ctrl+C to stop). The `.server.pid` file is listed in `.gitignore`.

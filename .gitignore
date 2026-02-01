@@ -27,6 +27,9 @@ go.work.sum
 # env file
 .env
 
+# Server PID (make start)
+.server.pid
+
 # Editor/IDE
 # .idea/
 # .vscode/
