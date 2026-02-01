@@ -17,8 +17,18 @@ var (
 	nextID   = 1
 )
 
+// List all rooms
+func HandleGetRooms(w http.ResponseWriter, r *http.Request) {
+	WriteJSON(w, http.StatusOK, rooms)
+}
+
+// List all bookings
+func HandleGetBookings(w http.ResponseWriter, r *http.Request) {
+	WriteJSON(w, http.StatusOK, bookings)
+}
+
 // List bookings for a specific room by room ID
-func HandleBookingsByRoom(w http.ResponseWriter, r *http.Request) {
+func HandleGetBookingsByRoom(w http.ResponseWriter, r *http.Request) {
 	roomIDStr := r.URL.Query().Get("roomId")
 
 	if roomIDStr == "" {

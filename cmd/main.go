@@ -11,7 +11,9 @@ import (
 func main() {
 	r := chi.NewRouter()
 
-	r.Get("/bookings/room", server.HandleBookingsByRoom)
+	r.Get("/rooms", server.HandleGetRooms)
+	r.Get("/bookings", server.HandleGetBookings)
+	r.Get("/bookings/room", server.HandleGetBookingsByRoom)
 	r.Post("/bookings", server.HandleCreateBooking)
 	r.Delete("/bookings", server.HandleDeleteBooking)
 

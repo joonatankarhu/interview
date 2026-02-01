@@ -16,6 +16,8 @@
 
 > Add these endpoints:
 >
+> - GET /rooms — list all rooms
+> - GET /bookings — list all bookings
 > - GET /bookings/room?roomId=1 — list all bookings for a room
 > - POST /bookings — create a new booking (JSON body: roomId, start, end, user)
 > - DELETE /bookings?id=1 — cancel a booking by ID
