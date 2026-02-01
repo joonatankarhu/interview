@@ -12,3 +12,11 @@ type Booking struct {
 	End    string `json:"end"`
 	User   string `json:"user"`
 }
+
+// CreateBookingRequest is the JSON body for POST /bookings.
+type CreateBookingRequest struct {
+	RoomID int    `json:"roomId"`
+	Start  string `json:"start"`
+	End    string `json:"end"`
+	User   string `json:"user"`
+}
